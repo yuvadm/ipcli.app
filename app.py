@@ -3,6 +3,8 @@ from os import environ
 
 app = Flask(__name__)
 
+env = 'PROD' if 'PROD' in environ else 'DEV'
+
 TEMPLATE = '''
 /----------------------------------------\\
 | {ip:39}|
@@ -14,14 +16,14 @@ TEMPLATE = '''
 '''
 
 def get_ip(request):
-    if 'PROD' in environ:
+    FOWARDED_FOR_HEADER = 'X-Forwarded-For'
+    if FOWARDED_FOR_HEADER in request.headers:
         # Routing layers and proxies along the way might mask the original IP
         # So fetch it from the custom header
         # And make sure we just take the first (source) IP address
-        ips = request.headers.get('X-Forwarded-For')
+        ips = request.headers.get(FOWARDED_FOR_HEADER)
         return ips.split(',')[0]
-    else:
-        return request.remote_addr
+    return request.remote_addr
 
 @app.route('/')
 def index():
