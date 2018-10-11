@@ -4,5 +4,7 @@ setup:
 build:
   languages:
     - python
+  packages:
+    - whois
 run:
   web: 'gunicorn app:app'
