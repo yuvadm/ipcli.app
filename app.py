@@ -3,6 +3,16 @@ from os import environ
 
 app = Flask(__name__)
 
+TEMPLATE = '''
+/----------------------------------------\\
+| {ip:39}|
+|                                        |
+| Created by Yuval Adam                  |
+| https://github.com/yuvadm/ipcli.app    |
+| Comments welcome at hello@ipcli.app    |
+\\----------------------------------------/
+'''
+
 def get_ip(request):
     if 'PROD' in environ:
         # Heroku routing layers masks the original IP, fetch it from the custom header
@@ -14,4 +24,5 @@ def get_ip(request):
 
 @app.route('/')
 def index():
-    return get_ip(request)
+    ip = get_ip(request)
+    return TEMPLATE.format(ip=ip)
