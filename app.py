@@ -26,3 +26,7 @@ def get_ip(request):
 def index():
     ip = get_ip(request)
     return TEMPLATE.format(ip=ip)
+
+@app.route('/p')
+def plain():
+    return get_ip(request)
