@@ -15,8 +15,9 @@ TEMPLATE = '''
 
 def get_ip(request):
     if 'PROD' in environ:
-        # Heroku routing layers masks the original IP, fetch it from the custom header
-        # And make sure we just take the first IP in case other proxies were in the way
+        # Routing layers and proxies along the way might mask the original IP
+        # So fetch it from the custom header
+        # And make sure we just take the first (source) IP address
         ips = request.headers.get('X-Forwarded-For')
         return ips.split(',')[0]
     else:
