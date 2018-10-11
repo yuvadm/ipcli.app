@@ -1,5 +1,6 @@
 from flask import Flask, request
 from os import environ
+from whois import whois
 
 app = Flask(__name__)
 
@@ -8,6 +9,9 @@ env = 'PROD' if 'PROD' in environ else 'DEV'
 TEMPLATE = '''
 /----------------------------------------\\
 | {ip:39}|
+| {route:39}|
+| {origin:39}|
+| {descr:39}|
 |                                        |
 | Created by Yuval Adam                  |
 | https://github.com/yuvadm/ipcli.app    |
@@ -28,7 +32,8 @@ def get_ip(request):
 @app.route('/')
 def index():
     ip = get_ip(request)
-    return TEMPLATE.format(ip=ip)
+    w = whois(ip)
+    return TEMPLATE.format(ip=ip, route=w['route'], origin=w['origin'], descr=w['descr'])
 
 @app.route('/p')
 def plain():
