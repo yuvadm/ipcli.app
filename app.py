@@ -1,5 +1,7 @@
 from flask import Flask, request
 from os import environ
+from termcolor import colored
+
 from whois import whois
 
 app = Flask(__name__)
@@ -7,17 +9,18 @@ app = Flask(__name__)
 env = 'PROD' if 'PROD' in environ else 'DEV'
 
 TEMPLATE = '''
-/----------------------------------------\\
-| {ip:39}|
-|                                        |
-| {route:39}|
-| {origin:39}|
-| {descr:39}|
-|                                        |
-| Created by Yuval Adam                  |
-| https://github.com/yuvadm/ipcli.app    |
-| Comments welcome at hello@ipcli.app    |
-\\----------------------------------------/
+/---------------------------------------------\\
+| {ip:44}|
+|                                             |
+| {route:44}|
+| {origin:44}|
+| {descr:44}|
+|                                             |
+|---------------------------------------------|
+| Created by Yuval Adam                       |
+| https://github.com/yuvadm/ipcli.app         |
+| Comments welcome at hello@ipcli.app         |
+\\---------------------------------------------/
 '''
 
 def get_ip(request):
