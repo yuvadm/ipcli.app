@@ -9,6 +9,7 @@ env = 'PROD' if 'PROD' in environ else 'DEV'
 TEMPLATE = '''
 /----------------------------------------\\
 | {ip:39}|
+|                                        |
 | {route:39}|
 | {origin:39}|
 | {descr:39}|

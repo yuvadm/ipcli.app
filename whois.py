@@ -4,6 +4,7 @@ def extract_field(field, response):
     for line in response:
         if line.startswith(field):
             return line.split('    ')[-1].strip()
+    return 'Unknown'
     
 def whois(ip):
     cp = run(['whois', ip], capture_output=True)
